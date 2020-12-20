@@ -20,5 +20,5 @@ Vue.prototype.$fetch = async (url, body) => {
 
 new Vue({
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

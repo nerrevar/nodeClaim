@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       result: {},
-      login: []
+      login: [],
     }
   },
   created () {
@@ -79,8 +79,8 @@ export default {
           this.result.unneeded.push(login)
         }
       this.$forceUpdate()
-    }
-  }
+    },
+  },
 }
 </script>
 

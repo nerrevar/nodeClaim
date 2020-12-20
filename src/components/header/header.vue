@@ -33,9 +33,9 @@ import Menu from './menu'
 export default {
   name: 'Header',
   props: ['project', 'menu'],
-  components: {Project, Menu},
+  components: { Project, Menu },
   computed: mapGetters(['getCurrentProject', 'getUser']),
-  methods: mapActions(['setCurrentPage'])
+  methods: mapActions(['setCurrentPage']),
 }
 </script>
 

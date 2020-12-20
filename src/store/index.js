@@ -23,14 +23,12 @@ export default new Vuex.Store({
     endDate: '',
   },
   getters: {
-    ...getters
+    ...getters,
   },
   mutations: {
-    ...mutations
+    ...mutations,
   },
   actions: {
-    ...actions
+    ...actions,
   },
-  modules: {
-  }
 })

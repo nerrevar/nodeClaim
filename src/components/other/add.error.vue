@@ -46,22 +46,22 @@
 <script>
 export default {
   name: 'AddError',
-  data() {
+  data () {
     return {
       question: [],
       kvList: [],
-      response: ''
+      response: '',
     }
   },
   methods: {
-    addError(e) {
+    addError (e) {
       e.preventDefault()
       fetch(
         'write_error',
         {
           method: 'POST',
           mode: 'same-origin',
-          body: new FormData(document.querySelector("form")),
+          body: new FormData(document.querySelector('form')),
           credentials: 'include',
         }
       ).then(
@@ -70,16 +70,17 @@ export default {
         response => {
           this.response = response
           document.getElementById('q_select').value = ''
-          setTimeout((_=this) => {
-              _.response = ''
+          setTimeout(
+            () => {
+              this.response = ''
             },
             10000
           )
         }
       )
-    }
+    },
   },
-  created() {
+  created () {
     fetch(
       'get_error_fill_data'
     ).then(
@@ -90,7 +91,7 @@ export default {
         this.kvList = response.kvList
       }
     )
-  }
+  },
 }
 </script>
 

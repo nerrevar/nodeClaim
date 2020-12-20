@@ -37,7 +37,7 @@ export default {
         9: 'Октябрь',
         10: 'Ноябрь',
         11: 'Декабрь',
-      }
+      },
     }
   },
   computed: mapGetters(['getStartDate', 'getEndDate']),
