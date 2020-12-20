@@ -46,7 +46,7 @@ export default {
   name: 'UserSettengs',
   data () {
     return {
-      response: ''
+      response: '',
     }
   },
   methods: {
@@ -58,15 +58,16 @@ export default {
           method: 'POST',
           mode: 'same-origin',
           body: new FormData(document.querySelector('form')),
-          credentials: 'include'
+          credentials: 'include',
         }
       ).then(
         response => response.text()
       ).then(
         response => {
           this.response = response
-          setTimeout((_=this) => {
-              _.response = ''
+          setTimeout(
+            () => {
+              this.response = ''
             },
             10000
           )
@@ -74,10 +75,10 @@ export default {
       )
     },
     logout () {
-      this.$fetch (
+      this.$fetch(
         '/api',
         {
-          target: 'logout'
+          target: 'logout',
         }
       ).then(
         response => response.json()
@@ -87,8 +88,8 @@ export default {
             this.setUser({})
         }
       )
-    }
-  }
+    },
+  },
 }
 </script>
 
