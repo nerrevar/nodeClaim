@@ -6,9 +6,7 @@ export const setCurrentProject = (state, project) => Vue.set(state, 'currentProj
 
 export const setCurrentPage = (state, pageName) => Vue.set(state, 'currentPage', pageName)
 
-export const setStartDate = (state, date) => Vue.set(state, 'startDate', date)
-
-export const setEndDate = (state, date) => Vue.set(state, 'endDate', date)
+export const setDate = (state, date) => Vue.set(state, 'date', date)
 
 export const setGroup = (state, group) => Vue.set(state, 'group', group)
 

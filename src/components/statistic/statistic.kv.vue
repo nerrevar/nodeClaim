@@ -31,7 +31,7 @@ export default {
       countArr: [],
     }
   },
-  computed: mapGetters(['getCurrentProject', 'getStartDate', 'getEndDate']),
+  computed: mapGetters(['getCurrentProject', 'getDate']),
   methods: {
     fetchStat () {
       this.$fetch(
@@ -39,6 +39,8 @@ export default {
         {
           target: 'statKv',
           projectCode: this.getCurrentProject.code,
+          month: this.getDate.month,
+          year: this.getDate.year,
         }
       ).then(
         response => response.json()
@@ -63,10 +65,7 @@ export default {
     this.fetchStat()
   },
   watch: {
-    getStartDate: function () {
-      this.fetchStat()
-    },
-    getEndDate: function () {
+    getDate: function () {
       this.fetchStat()
     },
   },

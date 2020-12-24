@@ -1,9 +1,20 @@
 <template>
   <div class="wrapper">
-    <span>Обязательно выберите месяц: </span>
+    <span>Год: </span>
+    <select
+      id="year"
+      :value="(new Date()).getFullYear()"
+      @change="dateChange"
+    >
+      <option>2020</option>
+      <option>2021</option>
+      <option>2022</option>
+    </select>
+    <span>Месяц: </span>
     <select
       id="month"
-      @click="setDate($event.target.value)"
+      :value="(new Date()).getMonth()"
+      @change="dateChange"
     >
       <option
         v-for="(item, index) in month"
@@ -42,16 +53,12 @@ export default {
   },
   computed: mapGetters(['getStartDate', 'getEndDate']),
   methods: {
-    ...mapActions(['setStartDate', 'setEndDate']),
-    setDate (month) {
-      month = parseInt(month) + 1
-      let startDate = `${(new Date()).getFullYear()}-${month < 10 ? '0' + month : month}-01`
-      this.setStartDate(startDate)
-      let endDate = `${(new Date()).getFullYear()}-${month < 10 ? '0' + month : month}-`
-      if (month === 12)
-        month = 0
-      endDate += `${new Date((new Date()).getFullYear(), month, 0).getDate()}`
-      this.setEndDate(endDate)
+    ...mapActions(['setDate']),
+    dateChange () {
+      this.setDate({
+        month: document.getElementById('month').value,
+        year: document.getElementById('year').value,
+      })
     },
   },
 }

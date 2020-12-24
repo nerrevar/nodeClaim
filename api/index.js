@@ -13,7 +13,7 @@ app.use(cookieParser())
 let data = {}
 
 let year = (new Date()).getFullYear()
-let month = (new Date()).getMonth() + 1
+let month = (new Date()).getMonth()
 
 app.use((req, res, next) => {
   if (!req.cookies.login)

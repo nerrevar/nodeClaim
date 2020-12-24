@@ -114,7 +114,7 @@ export default {
       totalCount: 0,
     }
   },
-  computed: mapGetters(['getCurrentProject', 'getUser', 'getStartDate', 'getEndDate']),
+  computed: mapGetters(['getCurrentProject', 'getUser', 'getDate']),
   methods: {
     ...mapActions(['setCurrentPage']),
     fetchClaims () {
@@ -122,8 +122,10 @@ export default {
         '/api',
         {
           target: 'stat',
-          user: this.getUser,
           projectCode: this.getCurrentProject.code,
+          month: this.getDate.month,
+          year: this.getDate.year,
+          user: this.getUser,
           userPermissions: this.getUser.project.filter(p => p.code === this.getCurrentProject.code)[0],
         }
       ).then(
@@ -192,7 +194,7 @@ export default {
     this.fetchClaims()
   },
   watch: {
-    getStartDate: function () {
+    getDate: function () {
       this.fetchClaims()
     },
   },

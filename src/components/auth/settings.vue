@@ -6,7 +6,7 @@
     >
       Выйти
     </div>
-    <div class="field_wrapper">
+    <!-- <div class="field_wrapper">
       <label for="password">Пароль</label>
       <input
         type="password"
@@ -35,7 +35,7 @@
       >
         Ошибка: {{ response }}
       </span>
-    </div>
+    </div> -->
   </form>
 </template>
 

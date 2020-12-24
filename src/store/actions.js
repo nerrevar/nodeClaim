@@ -4,6 +4,4 @@ export const setCurrentProject = ({ commit }, project) => commit('setCurrentProj
 
 export const setCurrentPage = ({ commit }, pageName) => commit('setCurrentPage', pageName)
 
-export const setStartDate = ({ commit }, date) => commit('setStartDate', date)
-
-export const setEndDate = ({ commit }, date) => commit('setEndDate', date)
+export const setDate = ({ commit }, date) => commit('setDate', date)

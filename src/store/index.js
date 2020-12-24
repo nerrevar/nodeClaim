@@ -19,8 +19,10 @@ export default new Vuex.Store({
       // login: 'root',
     },
     currentPage: '',
-    startDate: '',
-    endDate: '',
+    date: {
+      month: (new Date).getMonth(),
+      year: (new Date).getFullYear(),
+    },
   },
   getters: {
     ...getters,

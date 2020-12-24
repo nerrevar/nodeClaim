@@ -41,7 +41,7 @@ export default {
       question: {},
     }
   },
-  computed: mapGetters(['getCurrentProject', 'getCurrentPage', 'getUser', 'getStartDate', 'getEndDate']),
+  computed: mapGetters(['getCurrentProject', 'getCurrentPage', 'getUser', 'getDate']),
   methods: {
     fetchNumbers () {
       let login = this.getCurrentPage.login ? this.getCurrentPage.login : this.getUser.login
@@ -50,6 +50,8 @@ export default {
         {
           target: 'formNumbers',
           projectCode: this.getCurrentProject.code,
+          month: this.getDate.month,
+          year: this.getDate.year,
           login: login,
         }
       ).then(
@@ -77,10 +79,7 @@ export default {
     this.fetchNumbers()
   },
   watch: {
-    getStartDate: function () {
-      this.fetchNumbers()
-    },
-    getEndDate: function () {
+    getDate: function () {
       this.fetchNumbers()
     },
   },
