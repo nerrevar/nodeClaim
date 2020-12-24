@@ -20,8 +20,8 @@ export default new Vuex.Store({
     },
     currentPage: '',
     date: {
-      month: (new Date).getMonth(),
-      year: (new Date).getFullYear(),
+      month: (new Date()).getMonth(),
+      year: (new Date()).getFullYear(),
     },
   },
   getters: {
