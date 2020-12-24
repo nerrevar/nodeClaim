@@ -34,7 +34,7 @@ export default {
     ...mapActions(['setUser', 'setCurrentProject', 'setCurrentPage']),
     login () {
       this.$fetch(
-        '/claimApi',
+        '/api',
         {
           target: 'login',
           username: document.getElementById('username').value,

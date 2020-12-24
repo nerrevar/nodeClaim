@@ -46,7 +46,7 @@ export default {
     fetchNumbers () {
       let login = this.getCurrentPage.login ? this.getCurrentPage.login : this.getUser.login
       this.$fetch(
-        '/claimApi',
+        '/api',
         {
           target: 'formNumbers',
           projectCode: this.getCurrentProject.code,

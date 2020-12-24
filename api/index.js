@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.post('/claimApi', async (req, res, next) => {
+app.post('/api', async (req, res, next) => {
   if (!req.body)
     data = {
       status: 101,

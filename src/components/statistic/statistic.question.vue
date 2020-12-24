@@ -33,7 +33,7 @@ export default {
   methods: {
     fetchStat () {
       this.$fetch(
-        '/claimApi',
+        '/api',
         {
           target: 'statQ',
           projectCode: this.getCurrentProject.code,

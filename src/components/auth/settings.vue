@@ -76,7 +76,7 @@ export default {
     },
     logout () {
       this.$fetch(
-        '/claimApi',
+        '/api',
         {
           target: 'logout',
         }
