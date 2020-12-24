@@ -21,6 +21,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import sha256 from 'crypto-js/sha256'
+import Base64 from 'crypto-js/enc-base64'
 
 export default {
   name: 'Login',
@@ -38,7 +40,7 @@ export default {
         {
           target: 'login',
           username: document.getElementById('username').value,
-          password: document.getElementById('password').value,
+          password: Base64.stringify(sha256(document.getElementById('password').value)),
         }
       ).then(
         response => response.json()

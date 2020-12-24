@@ -1,5 +1,8 @@
 const config = require('./db.config')
 
+const Base64 = require('crypto-js/enc-base64')
+const sha256 = require('crypto-js/sha256')
+
 function initClient () {
   return require('mongodb').MongoClient(
     config.protocol + config.username + config.password + config.host + config.txtOptions,
@@ -203,7 +206,7 @@ module.exports.addUser = async function (user) {
         }
       }
     else {
-      user.password = user.login + user.login
+      user.password = Base64.stringify(sha256(user.login + user.login))
       if (user.project[0].captain === '')
         delete user.project[0].captain
       await client.db().collection('user').insertOne(user)
