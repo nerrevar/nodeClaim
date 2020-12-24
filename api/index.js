@@ -240,7 +240,7 @@ app.post('/api', async (req, res, next) => {
 })
 
 app.use((req, res) => {
-  res.status(200).end(data)
+  res.status(200).send(data)
 })
 
 app.listen(3000, () => {
