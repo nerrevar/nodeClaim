@@ -13,7 +13,6 @@ Vue.prototype.$fetch = async (url, body) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      Allow: 'POST',
     },
     body: JSON.stringify(body),
   })

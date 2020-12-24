@@ -119,7 +119,7 @@ export default {
     ...mapActions(['setCurrentPage']),
     fetchClaims () {
       this.$fetch(
-        '/api',
+        '/claimApi',
         {
           target: 'stat',
           user: this.getUser,

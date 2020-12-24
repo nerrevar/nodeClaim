@@ -47,7 +47,7 @@ export default {
       this.pending = true
       try {
         this.$fetch(
-          '/api',
+          '/claimApi',
           {
             target: 'writeErrorMultiple',
             projectCode: this.getCurrentProject.code,

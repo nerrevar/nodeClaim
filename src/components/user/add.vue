@@ -89,7 +89,7 @@ export default {
     addUser (e) {
       e.preventDefault()
       this.$fetch(
-        '/api',
+        '/claimApi',
         {
           target: 'addUser',
           projectCode: document.getElementById('project').value,
@@ -128,7 +128,7 @@ export default {
   created () {
     this.$parent.project.map(p => this.projects.push({ code: p.code, name: p.name }))
     this.$fetch(
-      '/api',
+      '/claimApi',
       {
         target: 'getGroups',
         projectCode: this.getCurrentProject.code,
