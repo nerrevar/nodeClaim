@@ -1,3 +1,8 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }],
+  "build": {
+    "env": {
+      "NODEJS_HELPERS": "0"
+    }
+  }
 }

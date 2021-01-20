@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'DatePicker',
@@ -51,7 +51,6 @@ export default {
       },
     }
   },
-  computed: mapGetters(['getStartDate', 'getEndDate']),
   methods: {
     ...mapActions(['setDate']),
     dateChange () {

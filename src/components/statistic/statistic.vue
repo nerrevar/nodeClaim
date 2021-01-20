@@ -123,8 +123,8 @@ export default {
         {
           target: 'stat',
           projectCode: this.getCurrentProject.code,
-          month: this.getDate.month,
-          year: this.getDate.year,
+          month: parseInt(this.getDate.month),
+          year: parseInt(this.getDate.year),
           user: this.getUser,
           userPermissions: this.getUser.project.filter(p => p.code === this.getCurrentProject.code)[0],
         }
@@ -133,6 +133,7 @@ export default {
       ).then(
         response => { // question, claim, user, group
           if (response.status === 10) {
+            this.totalCount = 0
             this.question = response.question.sort((a, b) => a.number > b.number)
             for (let g of response.group) {
               this.group[g] = {
@@ -167,6 +168,7 @@ export default {
                   user.questionCount[q.number] = 0
               }
               group.kv.push(user)
+              // console.log(user)
             }
           }
           else
@@ -223,7 +225,7 @@ export default {
   flex-flow: column nowrap
   border: 1px solid grey
   padding: 3px
-  max-width: 300px
+  width: 300px
 
 .small
   max-width: 150px

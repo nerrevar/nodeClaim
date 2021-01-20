@@ -50,8 +50,8 @@ export default {
         {
           target: 'formNumbers',
           projectCode: this.getCurrentProject.code,
-          month: this.getDate.month,
-          year: this.getDate.year,
+          month: parseInt(this.getDate.month),
+          year: parseInt(this.getDate.year),
           login: login,
         }
       ).then(

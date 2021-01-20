@@ -1,6 +1,6 @@
 <template>
   <form class="wrapper">
-    <p>Формат: логин, текст вопроса, номер анкеты</p>
+    <p>Формат: логин; текст вопроса; номер анкеты</p>
     <label>Список ошибок: </label>
     <textarea type="text" id="error_list"></textarea>
     <input type="checkbox" id="prev" name="prev" />
@@ -38,6 +38,7 @@ export default {
       response: {},
       pending: false,
       showResponse: false,
+      errorList: [],
     }
   },
   computed: mapGetters(['getCurrentProject']),
@@ -46,36 +47,14 @@ export default {
       e.preventDefault()
       this.pending = true
       try {
-        this.$fetch(
-          '/api',
-          {
-            target: 'writeErrorMultiple',
-            projectCode: this.getCurrentProject.code,
-            errorList: document.getElementById('error_list').value.trim().split('\n').map(
-              el => {
-                let arr = el.trim().split(';')
-                return {
-                  login: arr[0].trim(),
-                  questionText: arr[1].trim(),
-                  formId: arr[2].trim(),
-                }
-              }
-            ),
-            prev: document.getElementById('prev').checked,
-          }
-        ).then(
-          response => response.json()
-        ).then(
-          response => {
-            this.pending = false
-            this.response = response
-            this.showResponse = true
-            setTimeout(
-              () => {
-                this.showResponse = false
-              },
-              10000
-            )
+        this.errorList = document.getElementById('error_list').value.trim().split('\n').map(
+          el => {
+            let arr = el.trim().split(';')
+            return {
+              login: arr[0].trim(),
+              questionText: arr[1].trim(),
+              formId: arr[2].trim(),
+            }
           }
         )
       }
@@ -94,6 +73,75 @@ export default {
         )
         console.error(e)
       }
+      if (this.errorList.length !== 0)
+        // this.fetchRequest(0)
+        this.$fetch(
+          '/api',
+          {
+            target: 'writeErrorMultiple',
+            projectCode: this.getCurrentProject.code,
+            errorList: this.errorList,
+            prev: document.getElementById('prev').checked,
+          }
+        ).then(
+          response => response.json()
+        ).then(
+          response => {
+            this.pending = false
+            this.response = response
+            this.showResponse = true
+            setTimeout(
+              () => {
+                this.showResponse = false
+              },
+              10000
+            )
+          }
+        )
+    },
+    fetchRequest (startIndex) {
+      let endIndex = startIndex + 10 < this.errorList.length ? startIndex + 10 : this.errorList.length
+      console.log(startIndex, endIndex)
+      this.$fetch(
+        '/api',
+        {
+          target: 'writeErrorMultiple',
+          projectCode: this.getCurrentProject.code,
+          errorList: this.errorList.slice(startIndex, endIndex),
+          prev: document.getElementById('prev').checked,
+        }
+      ).then(
+        response => response.json()
+      ).then(
+        response => {
+          if (response.status !== 31) {
+            this.pending = false
+            this.response = response
+            this.showResponse = true
+            setTimeout(
+              () => {
+                this.showResponse = false
+              },
+              10000
+            )
+          }
+          else { /* eslint-disable-line */
+            if (endIndex === this.errorList.length - 1) {
+              this.pending = false
+              this.response = response
+              this.showResponse = true
+              setTimeout(
+                () => {
+                  this.showResponse = false
+                },
+                10000
+              )
+            }
+            else
+              this.fetchRequest(endIndex + 1)
+          }
+        }
+      )
     },
   },
 }

@@ -1,10 +1,14 @@
-const express = require('express')
-const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
+import express from 'express'
+import morgan from 'morgan'
+import cookieParser from 'cookie-parser'
+import history from 'connect-history-api-fallback'
 
-const db = require('./db.function')
+import db from './db.function'
+
+import admin from './admin'
 
 const app = express()
+app.use(history())
 app.use(express.static('dist'))
 app.use(morgan('dev'))
 app.use(express.json())
@@ -14,6 +18,13 @@ let data = {}
 
 let year = (new Date()).getFullYear()
 let month = (new Date()).getMonth()
+
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+})
+
+app.use('/admin', admin)
 
 app.use((req, res, next) => {
   if (!req.cookies.login)
@@ -26,9 +37,9 @@ app.use((req, res, next) => {
       status: 1,
       text: 'Successfully authorised by cookie'
     }
-  if (req.cookies.year && req.cookies.month) {
-    year = req.cookie.year
-    month = req.cookie.month
+  if (req.body.year && req.body.month) {
+    year = req.body.year
+    month = req.body.month
   }
   next()
 })
@@ -121,6 +132,7 @@ app.post('/api', async (req, res, next) => {
               text: 'Invalid user role'
             }
           }
+          console.log(year, month)
           let result = await db.getStat(req.body.projectCode, userQuery, year, month)
           let question = db.getQuestions(req.body.projectCode, year, month)
           if (!result || !question)
@@ -195,9 +207,9 @@ app.post('/api', async (req, res, next) => {
             text: 'Invalid data',
           }
         if (req.body.prev)
-          if (month === 1) {
+          if (month === 0) {
             year -= 1
-            month = 12
+            month = 11
           }
           else
             month -= 1
@@ -206,7 +218,7 @@ app.post('/api', async (req, res, next) => {
           status: result.status ? 31 : 112,
           text: result.status ?
             'Ошибки успешно добавлены' :
-            'Ошибки не добавлены. Ошибка в ' + result.type + ' ' + result.text
+            'Ошибки не добавлены. Ошибка в ' + result.type + ' \'' + result.text + '\''
         }
         break
       }
@@ -227,6 +239,21 @@ app.post('/api', async (req, res, next) => {
           data = {
             status: result.status ? 40 : 114,
             text: result.text ? result.text : 'Ошибка при добавлении пользователя'
+          }
+        }
+        break
+      }
+      case 'addQuestions': {
+        if (!req.body.questions)
+          data = {
+            status: 114,
+            text: 'Invalid questions format',
+          }
+        else {
+          let result = await db.addQuestions(req.body.projectCode, req.body.questions)
+          data = {
+            status: result.status ? 50 : 115,
+            text: result.text ? result.text : 'Ошибка при добавлении вопросов'
           }
         }
         break
